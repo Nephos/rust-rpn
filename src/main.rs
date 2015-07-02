@@ -103,6 +103,9 @@ fn main() {
     for out in stack_out.iter() {
         let string_to_find: &str = out;
         if token_op_all.contains(&string_to_find) {
+            if stack_ope.len() < 2 {
+                panic!("Invalid expression");
+            }
             let n2: f64;
             let n1: f64;
             n2 = stack_ope[stack_ope.len()-1].trim().parse::<f64>().ok().unwrap();
