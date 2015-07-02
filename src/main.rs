@@ -122,12 +122,16 @@ fn main() {
         }
     }
 
-    if stack_ope.len() > 0 {
+    if stack_ope.len() == 1 {
         let result = stack_ope[stack_ope.len() - 1].to_string();
         println!("{} = {}", input_line, result);
     }
+    else if stack_ope.len() == 0 {
+
+        panic!("No operation to do");
+    }
     else {
-        println!("No operation todo");
+        panic!("Too much operations to do")
     }
 }
 
