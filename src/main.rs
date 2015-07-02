@@ -51,7 +51,7 @@ fn main() {
     let mut stack_ope: Vec<String> = vec![];
 
     for token_ref in input_tab.iter() {
-        let token = token_ref.to_string();
+        let token = token_ref.clone();
         let token_ref: &str = &token;
         match token.parse::<f64>() {
             Ok(..) => {
@@ -62,11 +62,11 @@ fn main() {
                 if token_op_all.contains(&token_ref) {
                     println!("find operator {}", token);
                     if stack_ope.len() > 0 {
-                        let token_last = stack_ope[stack_ope.len()-1].to_string();
+                        let token_last = stack_ope[stack_ope.len()-1].clone();
                         let token_last_ref: &str = &token_last;
                         if token_op1.contains(&token_ref) && token_op_all.contains(&token_last_ref)
                             || (token_op2.contains(&token_ref) && token_op2.contains(&token_last_ref)) {
-                                stack_out.push(token_last.to_string());
+                                stack_out.push(token_last.clone());
                                 stack_ope.pop();
                                 println!("push {} from the stack to the out", token_last);
                             }
@@ -78,11 +78,11 @@ fn main() {
                     stack_ope.push(token.to_string());
                 }
                 else if token == token_sep_close && stack_ope.len() > 0 {
-                    let mut token_last = stack_ope[stack_ope.len()-1].to_string();
+                    let mut token_last = stack_ope[stack_ope.len()-1].clone();
                     while token_last != token_sep_open {
-                        stack_out.push(token_last.to_string());
+                        stack_out.push(token_last.clone());
                         stack_ope.pop();
-                        token_last = stack_ope[stack_ope.len()-1].to_string();
+                        token_last = stack_ope[stack_ope.len()-1].clone();
                     }
                     stack_ope.pop();
                 }
@@ -94,9 +94,9 @@ fn main() {
     }
 
     while stack_ope.len() > 0 {
-        let token_last = stack_ope[stack_ope.len()-1].to_string();
+        let token_last = stack_ope[stack_ope.len()-1].clone();
         println!("empty the stack, push {} to out", token_last);
-        stack_out.push(token_last.to_string());
+        stack_out.push(token_last.clone());
         stack_ope.pop();
     }
 
@@ -118,12 +118,12 @@ fn main() {
             println!("{} {} {} = {}", n1, out, n2, total);
         }
         else {
-            stack_ope.push(out.to_string());
+            stack_ope.push(out.clone());
         }
     }
 
     if stack_ope.len() == 1 {
-        let result = stack_ope[stack_ope.len() - 1].to_string();
+        let result = stack_ope[stack_ope.len() - 1].clone();
         println!("{} = {}", input_line, result);
     }
     else if stack_ope.len() == 0 {
