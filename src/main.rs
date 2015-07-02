@@ -17,7 +17,7 @@ fn main() {
 
     let token_op1 = ["+", "-"];
     let token_op2 = ["*", "/", "%"];
-    let token_opall = ["+", "-", "*", "/", "%"];
+    let token_op_all = ["+", "-", "*", "/", "%"];
     let token_sep_open = "(";
     let token_sep_close = ")";
 
@@ -33,12 +33,12 @@ fn main() {
                 stack_out.push(token.to_string());
             },
             Err(..) => {
-                if token_opall.contains(&token_ref) {
+                if token_op_all.contains(&token_ref) {
                     println!("find operator {}", token);
                     if stack_ope.len() > 0 {
                         let token_last = stack_ope[stack_ope.len()-1].to_string();
                         let token_last_ref: &str = &token_last;
-                        if token_op1.contains(&token_ref)
+                        if token_op1.contains(&token_ref) && token_op_all.contains(&token_last_ref)
                             || (token_op2.contains(&token_ref) && token_op2.contains(&token_last_ref)) {
                                 stack_out.push(token_last.to_string());
                                 stack_ope.pop();
@@ -77,7 +77,7 @@ fn main() {
     for out in stack_out.iter() {
         println!("Calculation {}", out);
         let string_to_find: &str = out;
-        if token_opall.contains(&string_to_find) {
+        if token_op_all.contains(&string_to_find) {
             let n2: f64;
             let n1: f64;
             n2 = stack_ope[stack_ope.len()-1].trim().parse::<f64>().ok().unwrap();
