@@ -1,10 +1,35 @@
 use std::io;
 
+fn compute(op: &str, n1: f64, n2: f64) -> f64 {
+    if op == "+" {
+        return n1 + n2;
+    }
+    else if op == "-" {
+        return n1 - n2;
+    }
+    else if op == "*" {
+        return n1 * n2;
+    }
+    else if op == "/" {
+        if n2 == 0.0 {
+            panic!("divide by 0");
+        }
+        return n1 / n2;
+    }
+    else if op == "%" {
+        if n2 == 0.0 {
+            panic!("divide by 0");
+        }
+        return n1 % n2;
+    }
+    else {
+        panic!("unknown operator");
+    }
+}
+
 fn main() {
     println!("Input your calculation.");
     println!("Press Enter to validated.");
-
-    // let token_num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
     let mut input = String::new();
     io::stdin().read_line(&mut input)
@@ -15,6 +40,7 @@ fn main() {
     let input_tab: Vec<&str> = input_split.collect();
     //let input_tab = input_split.collect::<Vec<&str>>();
 
+    // let token_num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     let token_op1 = ["+", "-"];
     let token_op2 = ["*", "/", "%"];
     let token_op_all = ["+", "-", "*", "/", "%"];
@@ -75,7 +101,6 @@ fn main() {
     }
 
     for out in stack_out.iter() {
-        println!("Calculation {}", out);
         let string_to_find: &str = out;
         if token_op_all.contains(&string_to_find) {
             let n2: f64;
@@ -84,27 +109,10 @@ fn main() {
             stack_ope.pop();
             n1 = stack_ope[stack_ope.len()-1].trim().parse::<f64>().ok().unwrap();
             stack_ope.pop();
-            let mut total: f64;
-            if out == "+" {
-                total = n1 + n2;
-            }
-            else if out == "-" {
-                total = n1 - n2;
-            }
-            else if out == "*" {
-                total = n1 * n2;
-            }
-            else if out == "/" {
-                total = n1 / n2;
-            }
-            else if out == "%" {
-                total = n1 % n2;
-            }
-            else {
-                total = 0.0;
-            }
+            let total = compute(out, n1, n2);
             let total_string = total.to_string();
             stack_ope.push(total_string);
+            println!("{} {} {} = {}", n1, out, n2, total);
         }
         else {
             stack_ope.push(out.to_string());
