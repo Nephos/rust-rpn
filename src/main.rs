@@ -29,7 +29,7 @@ fn compute(op: &str, n1: f64, n2: f64) -> f64 {
 
 fn main() {
     println!("Input your calculation.");
-    println!("Press Enter to validated.");
+    println!("Press Enter to validate.");
 
     let mut input = String::new();
     io::stdin().read_line(&mut input)
@@ -134,17 +134,3 @@ fn main() {
         panic!("Too much operations to do")
     }
 }
-
-// Si nombre
-//  -> OUT
-// Si Operateur
-//  o1: nouveau
-//  o2: tete de pile
-//  Si o1 <= o2
-//   -> o2 sort de la PILE
-//   -> o2 va dans OUT
-//  -> o1 sur la PILE
-// Si (
-//  -> PILE
-// Si )
-//  -> DEPILE sur OUT jusqu'à )
